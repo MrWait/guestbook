@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div>
+  <form method="POST" action="/device">
+    {% csrf-field %}
+    <p>
+      PK:
+      <input class="form-control"
+             type="text"
+             name="pk"
+             value="">
+    </p>
+    <p>
+      MAC:
+      <input class="form-control"
+             type="text"
+             name="mac">
+      </input>
+    </p>
+    <input type="submit"
+           class="btn btn-primary"
+           value="comment">
+</div>
+
+{% endblock %}
