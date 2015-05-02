@@ -49,10 +49,8 @@
   (timbre/info "shutdown complete!"))
 
 (def app
-  (-> println
-      (routes
-       home-routes
-       base-routes)
+  (-> (routes
+        home-routes
+        base-routes)
       development-middleware
-      production-middleware
-      ))
+      production-middleware))

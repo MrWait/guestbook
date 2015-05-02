@@ -1,9 +1,6 @@
 (ns guestbook.log
   (:require
    [guestbook.layout :as layout]
-   [guestbook.log :as log]
-   [guestbook.gz :as gz]
-   [guestbook.wx :as wx]
    [compojure.core :refer [defroutes GET POST]]
    [clojure.java.io :as io]
    [guestbook.db.core :as db]

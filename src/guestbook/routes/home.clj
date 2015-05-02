@@ -1,17 +1,13 @@
 (ns guestbook.routes.home
   (:require [guestbook.layout :as layout]
-            [guestbook.log :as log]
-            [guestbook.gz :as gz]
             [guestbook.wx :as wx]
-            [guestbook.tools :as tools]
+            [guestbook.gz :as gz]
             [compojure.core :refer [defroutes GET POST]]
             [clojure.java.io :as io]
             [guestbook.db.core :as db]
             [bouncer.core :as b]
             [bouncer.validators :as v]
-            [ring.util.response :refer [redirect]]
-            [clj-http.client :as client]
-            ))
+            [ring.util.response :refer [redirect]]))
 
 ;; (defn home-page []
 ;;   (layout/render
@@ -24,6 +20,9 @@
 
 (defn about-page []
   (layout/render "about.html"))
+
+(defn validate-wx [params]
+  {:echostr params})
 
 (defn validate-message [params]
   (first
@@ -43,10 +42,8 @@
 
 (defroutes home-routes
   (GET "/" request (home-page request))
+  (GET "/wx" request {:echostr request})
+  (POST "/wx" request (wx/wx-recieve-message request))
   (POST "/" request (save-message! request))
   (GET "/about" [] (about-page))
-  (GET "/wx" request (wx/wx request))
-  (POST "/wx" request  (println request))
-  (GET "/token" request ())
-  (GET "/device" [] (gz/device-page))
-  (POST "/device" request (gz/device-regist request)))
+  (GET "/device" [] (gz/device-page)))
